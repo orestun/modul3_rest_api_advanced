@@ -1,0 +1,13 @@
+com.epam.esm.exception
+com.epam.esm.generator
+com.epam.esm.giftCertificate
+com.epam.esm.giftCertificate.repository
+com.epam.esm.giftCertificate.service
+com.epam.esm.giftcertificateprojectadvanced
+com.epam.esm.order
+com.epam.esm.tag
+com.epam.esm.tag.repository
+com.epam.esm.tag.service
+com.epam.esm.user
+com.epam.esm.user.repository
+com.epam.esm.user.service
