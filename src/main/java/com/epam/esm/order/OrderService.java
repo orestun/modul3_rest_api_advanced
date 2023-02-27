@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 
 import java.time.Clock;
 import java.time.LocalDateTime;
+import java.time.ZoneOffset;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -71,7 +72,7 @@ public class OrderService {
         }
 
         Optional<GiftCertificate> giftCertificate = giftCertificateRepository.findById(giftCertificateID);
-        LocalDateTime currentDateTime = LocalDateTime.now(Clock.systemUTC());
+        LocalDateTime currentDateTime = LocalDateTime.now(ZoneOffset.of("+02:00"));
         Order order = new Order();
         order.setUserID(userID);
         order.setGiftCertificateID(giftCertificateID);
