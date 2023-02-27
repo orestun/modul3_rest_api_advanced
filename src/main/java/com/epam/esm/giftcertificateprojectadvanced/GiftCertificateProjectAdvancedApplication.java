@@ -1,17 +1,5 @@
 package com.epam.esm.giftcertificateprojectadvanced;
 
-import com.epam.esm.generator.GiftCertificateGenerator;
-import com.epam.esm.generator.UserGenerator;
-import com.epam.esm.giftCertificate.GiftCertificate;
-import com.epam.esm.giftCertificate.GiftCertificateRepository;
-import com.epam.esm.giftCertificate.GiftCertificateService;
-import com.epam.esm.order.OrderRepository;
-import com.epam.esm.order.OrderService;
-import com.epam.esm.tag.Tag;
-import com.epam.esm.tag.TagRepository;
-import com.epam.esm.user.User;
-import com.epam.esm.user.UserRepository;
-import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.autoconfigure.domain.EntityScan;

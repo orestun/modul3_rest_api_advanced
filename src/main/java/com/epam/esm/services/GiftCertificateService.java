@@ -1,8 +1,10 @@
-package com.epam.esm.giftCertificate;
+package com.epam.esm.services;
 
 import com.epam.esm.exception.*;
-import com.epam.esm.tag.Tag;
-import com.epam.esm.tag.TagRepository;
+import com.epam.esm.models.GiftCertificate;
+import com.epam.esm.models.Tag;
+import com.epam.esm.repositories.GiftCertificateRepository;
+import com.epam.esm.repositories.TagRepository;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
@@ -11,7 +13,6 @@ import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
-import java.time.LocalDate;
 import java.util.*;
 import java.util.stream.Collectors;
 

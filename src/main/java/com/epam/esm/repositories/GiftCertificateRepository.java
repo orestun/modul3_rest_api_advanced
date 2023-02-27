@@ -1,5 +1,6 @@
-package com.epam.esm.giftCertificate;
+package com.epam.esm.repositories;
 
+import com.epam.esm.models.GiftCertificate;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;

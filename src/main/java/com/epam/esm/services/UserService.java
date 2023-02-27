@@ -1,8 +1,10 @@
-package com.epam.esm.user;
+package com.epam.esm.services;
 
 import com.epam.esm.exception.DataValidationHandler;
 import com.epam.esm.exception.HibernateValidationException;
 import com.epam.esm.exception.ObjectAlreadyExistsException;
+import com.epam.esm.models.User;
+import com.epam.esm.repositories.UserRepository;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;

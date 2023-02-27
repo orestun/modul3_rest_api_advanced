@@ -1,14 +1,11 @@
 package com.epam.esm.order.service;
 
 import com.epam.esm.exception.ItemNotFoundException;
-import com.epam.esm.giftCertificate.GiftCertificate;
-import com.epam.esm.giftCertificate.GiftCertificateRepository;
-import com.epam.esm.order.Order;
-import com.epam.esm.order.OrderRepository;
-import com.epam.esm.order.OrderService;
-import com.epam.esm.tag.TagRepository;
-import com.epam.esm.user.UserRepository;
-import org.aspectj.weaver.ast.Or;
+import com.epam.esm.repositories.GiftCertificateRepository;
+import com.epam.esm.models.Order;
+import com.epam.esm.repositories.OrderRepository;
+import com.epam.esm.services.OrderService;
+import com.epam.esm.repositories.UserRepository;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.junit.jupiter.params.ParameterizedTest;

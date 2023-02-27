@@ -3,11 +3,11 @@ package com.epam.esm.giftCertificate.service;
 import com.epam.esm.exception.HibernateValidationException;
 import com.epam.esm.exception.ItemNotFoundException;
 import com.epam.esm.exception.NotAllowedParameterException;
-import com.epam.esm.giftCertificate.GiftCertificate;
-import com.epam.esm.giftCertificate.GiftCertificateRepository;
-import com.epam.esm.giftCertificate.GiftCertificateService;
-import com.epam.esm.tag.Tag;
-import com.epam.esm.tag.TagRepository;
+import com.epam.esm.models.GiftCertificate;
+import com.epam.esm.repositories.GiftCertificateRepository;
+import com.epam.esm.services.GiftCertificateService;
+import com.epam.esm.models.Tag;
+import com.epam.esm.repositories.TagRepository;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -15,7 +15,6 @@ import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.CsvSource;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
-import org.mockito.Mockito;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.mockito.junit.jupiter.MockitoSettings;
 import org.mockito.quality.Strictness;
@@ -26,9 +25,7 @@ import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
 import java.math.BigDecimal;
-import java.math.BigInteger;
 import java.util.*;
-import java.util.stream.Collectors;
 
 @ExtendWith(MockitoExtension.class)
 @MockitoSettings(strictness = Strictness.LENIENT)

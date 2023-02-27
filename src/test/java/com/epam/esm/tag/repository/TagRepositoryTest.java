@@ -1,8 +1,8 @@
 package com.epam.esm.tag.repository;
 
 import com.epam.esm.giftcertificateprojectadvanced.GiftCertificateProjectAdvancedApplication;
-import com.epam.esm.tag.Tag;
-import com.epam.esm.tag.TagRepository;
+import com.epam.esm.models.Tag;
+import com.epam.esm.repositories.TagRepository;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.CsvSource;
 import org.springframework.beans.factory.annotation.Autowired;

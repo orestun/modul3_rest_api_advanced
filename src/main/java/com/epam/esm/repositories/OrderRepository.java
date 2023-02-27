@@ -1,5 +1,6 @@
-package com.epam.esm.order;
+package com.epam.esm.repositories;
 
+import com.epam.esm.models.Order;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

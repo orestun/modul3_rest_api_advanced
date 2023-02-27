@@ -1,5 +1,8 @@
-package com.epam.esm.user;
+package com.epam.esm.controllers;
 
+import com.epam.esm.models.User;
+import com.epam.esm.hateoas.UserHateoas;
+import com.epam.esm.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;

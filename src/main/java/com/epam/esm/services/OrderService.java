@@ -1,13 +1,14 @@
-package com.epam.esm.order;
+package com.epam.esm.services;
 
 import com.epam.esm.exception.ItemNotFoundException;
-import com.epam.esm.giftCertificate.GiftCertificate;
-import com.epam.esm.giftCertificate.GiftCertificateRepository;
-import com.epam.esm.user.UserRepository;
+import com.epam.esm.models.GiftCertificate;
+import com.epam.esm.repositories.GiftCertificateRepository;
+import com.epam.esm.models.Order;
+import com.epam.esm.repositories.OrderRepository;
+import com.epam.esm.repositories.UserRepository;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
-import java.time.Clock;
 import java.time.LocalDateTime;
 import java.time.ZoneOffset;
 import java.util.List;

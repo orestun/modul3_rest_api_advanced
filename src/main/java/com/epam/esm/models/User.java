@@ -1,4 +1,4 @@
-package com.epam.esm.user;
+package com.epam.esm.models;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import jakarta.persistence.*;

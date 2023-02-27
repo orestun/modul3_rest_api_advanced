@@ -1,7 +1,7 @@
 package com.epam.esm.generator;
 
-import com.epam.esm.giftCertificate.GiftCertificate;
-import com.epam.esm.tag.Tag;
+import com.epam.esm.models.GiftCertificate;
+import com.epam.esm.models.Tag;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;

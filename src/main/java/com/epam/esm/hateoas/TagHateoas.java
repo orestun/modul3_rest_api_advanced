@@ -1,6 +1,7 @@
-package com.epam.esm.tag;
+package com.epam.esm.hateoas;
 
-import com.epam.esm.giftCertificate.GiftCertificateController;
+import com.epam.esm.controllers.TagController;
+import com.epam.esm.models.Tag;
 import org.springframework.hateoas.Link;
 
 import java.util.List;

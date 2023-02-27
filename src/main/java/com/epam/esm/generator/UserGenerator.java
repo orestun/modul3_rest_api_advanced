@@ -1,6 +1,6 @@
 package com.epam.esm.generator;
 
-import com.epam.esm.user.User;
+import com.epam.esm.models.User;
 
 import java.time.LocalDate;
 import java.util.List;

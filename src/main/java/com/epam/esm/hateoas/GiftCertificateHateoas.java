@@ -1,5 +1,7 @@
-package com.epam.esm.giftCertificate;
+package com.epam.esm.hateoas;
 
+import com.epam.esm.controllers.GiftCertificateController;
+import com.epam.esm.models.GiftCertificate;
 import org.springframework.hateoas.Link;
 
 import java.math.BigDecimal;

@@ -1,6 +1,7 @@
-package com.epam.esm.order;
+package com.epam.esm.controllers;
 
-import com.epam.esm.giftCertificate.GiftCertificateService;
+import com.epam.esm.models.Order;
+import com.epam.esm.services.OrderService;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
 
@@ -48,7 +49,7 @@ public class OrderController {
      * @return the object of order that was added
      * */
     @PostMapping
-    public Order addNewOrder(@RequestParam("user-ID") Long userID,@RequestParam("gift-certificate-ID") Long giftCertificateID){
+    public Order addNewOrder(@RequestParam("user-ID") Long userID, @RequestParam("gift-certificate-ID") Long giftCertificateID){
         return orderService.addNewOrder(userID, giftCertificateID);
     }
 }

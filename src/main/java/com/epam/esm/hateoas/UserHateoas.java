@@ -1,6 +1,7 @@
-package com.epam.esm.user;
+package com.epam.esm.hateoas;
 
-import com.epam.esm.tag.TagController;
+import com.epam.esm.controllers.UserController;
+import com.epam.esm.models.User;
 import org.springframework.hateoas.Link;
 
 /**

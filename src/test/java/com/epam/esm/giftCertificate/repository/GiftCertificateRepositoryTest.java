@@ -1,11 +1,9 @@
 package com.epam.esm.giftCertificate.repository;
 
-import com.epam.esm.giftCertificate.GiftCertificate;
-import com.epam.esm.giftCertificate.GiftCertificateRepository;
-import com.epam.esm.giftCertificate.GiftCertificateService;
+import com.epam.esm.models.GiftCertificate;
+import com.epam.esm.repositories.GiftCertificateRepository;
 import com.epam.esm.giftcertificateprojectadvanced.GiftCertificateProjectAdvancedApplication;
 
-import com.epam.esm.tag.TagRepository;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.CsvSource;

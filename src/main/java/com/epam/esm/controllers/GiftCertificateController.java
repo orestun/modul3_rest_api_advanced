@@ -1,5 +1,8 @@
-package com.epam.esm.giftCertificate;
+package com.epam.esm.controllers;
 
+import com.epam.esm.hateoas.GiftCertificateHateoas;
+import com.epam.esm.services.GiftCertificateService;
+import com.epam.esm.models.GiftCertificate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;

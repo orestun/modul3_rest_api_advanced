@@ -2,11 +2,9 @@ package com.epam.esm.user.service;
 
 import com.epam.esm.exception.HibernateValidationException;
 import com.epam.esm.exception.ObjectAlreadyExistsException;
-import com.epam.esm.user.User;
-import com.epam.esm.user.UserRepository;
-import com.epam.esm.user.UserService;
-import org.aspectj.lang.annotation.Before;
-import org.junit.jupiter.api.BeforeAll;
+import com.epam.esm.models.User;
+import com.epam.esm.repositories.UserRepository;
+import com.epam.esm.services.UserService;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;

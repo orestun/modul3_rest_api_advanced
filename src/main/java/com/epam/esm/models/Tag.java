@@ -1,4 +1,4 @@
-package com.epam.esm.tag;
+package com.epam.esm.models;
 
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;

@@ -1,7 +1,8 @@
-package com.epam.esm.tag;
+package com.epam.esm.controllers;
 
-import com.epam.esm.giftCertificate.GiftCertificate;
-import com.epam.esm.order.OrderService;
+import com.epam.esm.models.Tag;
+import com.epam.esm.hateoas.TagHateoas;
+import com.epam.esm.services.TagService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
