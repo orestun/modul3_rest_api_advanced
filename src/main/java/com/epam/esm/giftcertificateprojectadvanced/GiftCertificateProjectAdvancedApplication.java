@@ -16,11 +16,13 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.autoconfigure.domain.EntityScan;
 import org.springframework.context.annotation.ComponentScan;
+import org.springframework.data.jpa.repository.config.EnableJpaAuditing;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 
 @ComponentScan("com.epam.esm")
 @EntityScan("com.epam.esm")
 @EnableJpaRepositories("com.epam.esm")
+@EnableJpaAuditing
 @SpringBootApplication
 public class GiftCertificateProjectAdvancedApplication {
 

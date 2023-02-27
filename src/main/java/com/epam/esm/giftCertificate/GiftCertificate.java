@@ -10,6 +10,7 @@ import org.hibernate.Hibernate;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
+import org.springframework.data.jpa.repository.config.EnableJpaAuditing;
 import org.springframework.hateoas.RepresentationModel;
 
 import java.math.BigDecimal;
@@ -64,14 +65,15 @@ public class GiftCertificate extends RepresentationModel<GiftCertificate> {
     @Digits(integer=8, fraction=2)
     private BigDecimal price;
 
+    @CreatedDate
     @JsonFormat(shape=JsonFormat.Shape.STRING, pattern="yyyy-MM-dd")
     private LocalDate createDate;
 
-    @CreatedDate
+    @LastModifiedDate
     @JsonFormat(shape=JsonFormat.Shape.STRING, pattern="yyyy-MM-dd")
     private LocalDate updateDate;
 
-    @LastModifiedDate
+
     @ManyToMany(cascade = CascadeType.MERGE)
     @JoinTable(
             name = "certificate_tag",

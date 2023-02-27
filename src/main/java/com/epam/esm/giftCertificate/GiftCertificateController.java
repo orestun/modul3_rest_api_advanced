@@ -195,8 +195,9 @@ public class GiftCertificateController {
      * */
     @PatchMapping("{id}")
     public GiftCertificate updateGiftCertificate(@PathVariable("id") Long id, @RequestBody GiftCertificate giftCertificate){
-        giftCertificateService.updateGiftCertificate(id, giftCertificate);
-        return GiftCertificateHateoas.linksForUpdateGiftCErtificate(giftCertificate);
+        GiftCertificate updatedGiftCertificate =
+                giftCertificateService.updateGiftCertificate(id, giftCertificate);
+        return GiftCertificateHateoas.linksForUpdateGiftCErtificate(updatedGiftCertificate);
     }
 
     /**

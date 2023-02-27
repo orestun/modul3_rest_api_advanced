@@ -1,9 +1,6 @@
 package com.epam.esm.giftCertificate;
 
-import com.epam.esm.exception.DataValidationHandler;
-import com.epam.esm.exception.HibernateValidationException;
-import com.epam.esm.exception.ItemNotFoundException;
-import com.epam.esm.exception.NotAllowedParameterException;
+import com.epam.esm.exception.*;
 import com.epam.esm.tag.Tag;
 import com.epam.esm.tag.TagRepository;
 import jakarta.validation.Valid;
@@ -246,10 +243,12 @@ public class GiftCertificateService {
             if(!currentGiftCertificate.get().equals(giftCertificate)){
                 giftCertificate.setCreateDate(currentGiftCertificate.get().getCreateDate());
                 giftCertificate.setTags(currentGiftCertificate.get().getTags());
-                giftCertificateRepository.save(giftCertificate);
+                return giftCertificateRepository.save(giftCertificate);
             }
         }
-        return giftCertificate;
+        throw new ObjectAlreadyExistsException(
+                String.format("You did not input any new field for gift certificate with (id=%d)",id),
+                40401L);
     }
 
     /**
