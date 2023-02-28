@@ -1,14 +1,11 @@
 package com.epam.esm.filters;
 
-import com.sun.net.httpserver.HttpServer;
 import jakarta.servlet.*;
-import jakarta.servlet.annotation.WebFilter;
 import jakarta.servlet.http.HttpServletRequest;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
 
-import javax.xml.crypto.dsig.spec.XPathType;
 import java.io.IOException;
 
 @Component
