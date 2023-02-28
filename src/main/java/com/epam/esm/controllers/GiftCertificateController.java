@@ -163,9 +163,9 @@ public class GiftCertificateController {
      *
      * @return list of gift certificates got by tags got from service layer
      * */
-    @GetMapping("find-by-several-tags/{tags}")
+    @GetMapping("find-by-several-tags")
     public List<GiftCertificate> getGiftCertificateBySeveralTags(
-            @PathVariable("tags") String[] tags,
+            @RequestParam("tags") String[] tags,
             @RequestParam(value = "page", defaultValue = "1") Integer page,
             @RequestParam(value = "page-size", defaultValue = "10") Integer pageSize){
         List<GiftCertificate> giftCertificateList =
