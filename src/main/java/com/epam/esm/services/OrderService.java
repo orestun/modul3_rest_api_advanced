@@ -83,4 +83,21 @@ public class OrderService {
         orderRepository.save(order);
         return order;
     }
+
+    public List<Order> getOrdersByUserId(Long userID,
+                                         Integer page,
+                                         Integer pageSize){
+        page-=1;
+        if(!userRepository.existsById(userID)){
+            throw new ItemNotFoundException(
+                    String.format("There is not such user with (id = %d)",userID),
+                    40401L);
+        }
+
+        return orderRepository.
+                findByUserID(
+                        userID,
+                        PageRequest.of(page, pageSize)).
+                stream().toList();
+    }
 }

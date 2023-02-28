@@ -62,6 +62,8 @@ public class GiftCertificateRepositoryTest {
                         PageRequest.of(0,10)).stream().toList();
         for(GiftCertificate gc: actualGiftCertificateList){
             gc.setTags(null);
+            gc.setCreateDate(null);
+            gc.setUpdateDate(null);
         }
         List<GiftCertificate> expectedGiftCertificateList =
                 List.of(
@@ -78,9 +80,12 @@ public class GiftCertificateRepositoryTest {
                         "gc for books",
                         PageRequest.of(0,10)).stream().toList();
         actualGiftCertificateList.get(0).setTags(null);
+        actualGiftCertificateList.get(0).setCreateDate(null);
+        actualGiftCertificateList.get(0).setUpdateDate(null);
         List<GiftCertificate> expectedGiftCertificateList =
                 List.of(
                         new GiftCertificate(5,"books", "gc for books", 90, new BigDecimal("100.00")));
+
         assertEquals(expectedGiftCertificateList, actualGiftCertificateList);
     }
 

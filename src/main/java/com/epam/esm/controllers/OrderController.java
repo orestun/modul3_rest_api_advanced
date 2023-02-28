@@ -2,7 +2,10 @@ package com.epam.esm.controllers;
 
 import com.epam.esm.models.Order;
 import com.epam.esm.services.OrderService;
+import org.springframework.boot.context.properties.bind.DefaultValue;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.http.MediaType;
+import org.springframework.lang.Nullable;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -51,5 +54,16 @@ public class OrderController {
     @PostMapping
     public Order addNewOrder(@RequestParam("user-ID") Long userID, @RequestParam("gift-certificate-ID") Long giftCertificateID){
         return orderService.addNewOrder(userID, giftCertificateID);
+    }
+
+    @GetMapping("{user-ID}")
+    public List<Order> getOrdersByUserId(
+            @PathVariable("user-ID") Long userId,
+            @Nullable @RequestParam(value = "page", defaultValue = "1") Integer page,
+            @Nullable @RequestParam(value = "page-size", defaultValue = "10") Integer pageSize){
+        return orderService.getOrdersByUserId(
+                userId,
+                page,
+                pageSize);
     }
 }
