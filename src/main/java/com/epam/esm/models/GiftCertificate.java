@@ -28,7 +28,7 @@ import java.util.Set;
 @AllArgsConstructor
 @EqualsAndHashCode
 @EntityListeners({AuditingEntityListener.class})
-public class GiftCertificate extends RepresentationModel<GiftCertificate> {
+public class GiftCertificate {
     @Id
     @JsonView
     @GeneratedValue(

@@ -1,13 +1,11 @@
 package com.epam.esm.hateoas;
 
+import com.epam.esm.DTO.TagDTO;
 import com.epam.esm.controllers.TagController;
 import com.epam.esm.models.Tag;
 import org.springframework.hateoas.Link;
 
 import java.util.List;
-
-import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.linkTo;
-import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.methodOn;
 
 /**
  * @author orest uzhytchak
@@ -19,9 +17,9 @@ public class TagHateoas {
             Link.of("http://localhost:8080/tag").
                     withRel("Get all tags").
                     withType("GET");
+
     private static Link deleteTagByIdLink(Long id) {
-        return linkTo(methodOn(TagController.class).
-                deleteTag(id)).
+        return  Link.of(String.format("http://localhost:8080/tag/%d",id)).
                 withRel("Delete tag by id").
                 withType("DELETE");
     }
@@ -39,28 +37,28 @@ public class TagHateoas {
      *
      * @return tags list with links
      * */
-    public static List<Tag> linksForGettingAllTags(
-            List<Tag> tags){
-        for(Tag tag: tags){
-            tag.add(deleteTagByIdLink(tag.getId()));
-            tag.add(getMostWidelyUsedTag);
+    public static List<TagDTO> linksForGettingAllTags(
+            List<TagDTO> tags){
+        for(TagDTO tagDTO: tags){
+            tagDTO.add(deleteTagByIdLink(tagDTO.getId()));
+            tagDTO.add(getMostWidelyUsedTag);
         }
         return tags;
     }
 
     /**
      * Hateoas method that add links to Tag objects got as
-     * result of method {@link TagController#addNewTag(Tag)}
+     * result of method {@link TagController#addNewTag(TagDTO)}
      *
-     * @param tag tag that was added to DB
+     * @param tagDTO tag that was added to DB
      *
      * @return tag with links
      * */
-    public static Tag linksForAddingNewTag(
-            Tag tag){
-        tag.add(getAllTagsLink);
-        tag.add(deleteTagByIdLink(tag.getId()));
-        tag.add(getMostWidelyUsedTag);
-        return tag;
+    public static TagDTO linksForAddingNewTag(
+            TagDTO tagDTO){
+        tagDTO.add(getAllTagsLink);
+        tagDTO.add(deleteTagByIdLink(tagDTO.getId()));
+        tagDTO.add(getMostWidelyUsedTag);
+        return tagDTO;
     }
 }

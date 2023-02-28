@@ -1,5 +1,7 @@
 package com.epam.esm.controllers;
 
+import com.epam.esm.DTO.TagDTO;
+import com.epam.esm.mapper.TagMapper;
 import com.epam.esm.models.Tag;
 import com.epam.esm.hateoas.TagHateoas;
 import com.epam.esm.services.TagService;
@@ -23,6 +25,7 @@ public class TagController {
 
     private final TagService tagService;
 
+    private final TagMapper tagMapper = new TagMapper();
     @Autowired
     public TagController(TagService tagService) {
         this.tagService = tagService;
@@ -39,12 +42,16 @@ public class TagController {
      * @return list of tags got from service layer
      * */
     @GetMapping
-    public List<Tag> getAllTags(
+    public List<TagDTO> getAllTags(
             @RequestParam(value = "page", defaultValue = "1") Integer page,
             @RequestParam(value = "page-size", defaultValue = "10") Integer pageSize
     ){
-        List<Tag> tags =
-                tagService.getAllTags(page, pageSize);
+        List<TagDTO> tags =
+                tagService.
+                        getAllTags(page, pageSize).
+                        stream().
+                        map(tagMapper::toDto).
+                        toList();
         return TagHateoas.linksForGettingAllTags(tags);
     }
 
@@ -57,8 +64,10 @@ public class TagController {
      * @return the most widely used tag for user with the highest cost of all orders
      * */
     @GetMapping("most-widely-used-tag")
-    public Tag getTheMostWidelyTagOfUserWithTheHighestTotalOrderCost(){
-        return tagService.getTheMostWidelyTagOfUserWithTheHighestTotalOrderCost();
+    public TagDTO getTheMostWidelyTagOfUserWithTheHighestTotalOrderCost(){
+        return tagMapper.
+                toDto(tagService.
+                        getTheMostWidelyTagOfUserWithTheHighestTotalOrderCost());
     }
 
     /**
@@ -70,9 +79,9 @@ public class TagController {
      * @return tag that was added in DB
      * */
     @PostMapping
-    public Tag addNewTag(@RequestBody Tag tag){
-        Tag createdTag = tagService.addNewTag(tag);
-        return TagHateoas.linksForAddingNewTag(createdTag);
+    public TagDTO addNewTag(@RequestBody TagDTO tag){
+        Tag createdTag = tagService.addNewTag(tagMapper.toTag(tag));
+        return TagHateoas.linksForAddingNewTag(tagMapper.toDto(createdTag));
     }
 
     /**

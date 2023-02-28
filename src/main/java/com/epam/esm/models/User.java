@@ -22,7 +22,7 @@ import java.time.LocalDate;
 @ToString
 @AllArgsConstructor
 @NoArgsConstructor
-public class User extends RepresentationModel<User> {
+public class User{
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "id", nullable = false)
@@ -47,4 +47,13 @@ public class User extends RepresentationModel<User> {
     @JsonFormat(shape=JsonFormat.Shape.STRING, pattern="yyyy-MM-dd")
     private LocalDate birthDay;
 
+    public User(String name,
+                String surname,
+                String email,
+                LocalDate birthDay) {
+        this.name = name;
+        this.surname = surname;
+        this.email = email;
+        this.birthDay = birthDay;
+    }
 }

@@ -1,5 +1,7 @@
 package com.epam.esm.controllers;
 
+import com.epam.esm.DTO.UserDTO;
+import com.epam.esm.mapper.UserMapper;
 import com.epam.esm.models.User;
 import com.epam.esm.hateoas.UserHateoas;
 import com.epam.esm.services.UserService;
@@ -18,6 +20,7 @@ import java.util.List;
 public class UserController {
     private final UserService userService;
 
+    private final UserMapper userMapper = new UserMapper();
     @Autowired
     public UserController(UserService userService) {
         this.userService = userService;
@@ -34,11 +37,14 @@ public class UserController {
      * @return list of users got from service layer
      * */
     @GetMapping
-    public List<User> getAllUsers(
+    public List<UserDTO> getAllUsers(
             @RequestParam(value = "page", defaultValue = "1") Integer page,
             @RequestParam(value = "page-size", defaultValue = "10") Integer pageSize
     ){
-        return userService.getAllUsers(page, pageSize);
+        return userService.
+                getAllUsers(page, pageSize).
+                stream().map(userMapper::toDto).
+                toList();
     }
 
     /**
@@ -50,8 +56,11 @@ public class UserController {
      * @return user object that was added in DB
      * */
     @PostMapping
-    public User addNewUser(@RequestBody User user){
-        User createdUser = userService.addNewUser(user);
-        return UserHateoas.linksForAddingNewUser(createdUser);
+    public UserDTO addNewUser(@RequestBody UserDTO user){
+        User createdUser = userService.
+                addNewUser(userMapper.toUser(user));
+        return UserHateoas.
+                linksForAddingNewUser(userMapper.
+                        toDto(createdUser));
     }
 }

@@ -1,6 +1,8 @@
 package com.epam.esm.controllers;
 
+import com.epam.esm.DTO.GiftCertificateDTO;
 import com.epam.esm.hateoas.GiftCertificateHateoas;
+import com.epam.esm.mapper.GiftCertificateMapper;
 import com.epam.esm.services.GiftCertificateService;
 import com.epam.esm.models.GiftCertificate;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,6 +25,9 @@ import java.util.*;
 public class GiftCertificateController {
     private final GiftCertificateService giftCertificateService;
 
+    private static final GiftCertificateMapper giftCertificateMapper =
+            new GiftCertificateMapper();
+
     @Autowired
     public GiftCertificateController(GiftCertificateService giftCertificateService) {
         this.giftCertificateService = giftCertificateService;
@@ -39,12 +44,19 @@ public class GiftCertificateController {
      * @return list of gift certificates got from service layer
      * */
     @GetMapping
-    public List<GiftCertificate> getAllGiftCertificates(
+    public List<GiftCertificateDTO> getAllGiftCertificates(
             @RequestParam(value = "page",defaultValue = "1") Integer page,
             @RequestParam(value = "page-size", defaultValue = "10") Integer pageSize){
-        List<GiftCertificate> giftCertificateList = giftCertificateService.getAllGiftCertificates(page, pageSize);
+        List<GiftCertificate> giftCertificateList =
+                giftCertificateService.getAllGiftCertificates(page, pageSize);
+        List<GiftCertificateDTO> giftCertificateDTOList =
+                giftCertificateList.
+                        stream().
+                        map(giftCertificateMapper::toDto).
+                        toList();
+
         return GiftCertificateHateoas.
-                linksForGettingGiftCertificates(giftCertificateList);
+                linksForGettingGiftCertificates(giftCertificateDTOList);
     }
 
     /**
@@ -62,7 +74,7 @@ public class GiftCertificateController {
      * @return list of sorted gift certificates got from service layer
      * */
     @GetMapping("sort")
-    public List<GiftCertificate> getSortedGiftCertificates(@Nullable @RequestParam("name") String nameDirection,
+    public List<GiftCertificateDTO> getSortedGiftCertificates(@Nullable @RequestParam("name") String nameDirection,
                                                            @Nullable @RequestParam("create-date") String createDateDirection,
                                                            @Nullable @RequestParam("price") String priceDirection,
                                                            @RequestParam(value = "page", defaultValue = "1") Integer page,
@@ -80,9 +92,14 @@ public class GiftCertificateController {
         }else{
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST);
         }
+        List<GiftCertificateDTO> giftCertificateDTOList =
+                giftCertificateList.
+                        stream().
+                        map(giftCertificateMapper::toDto).
+                        toList();
 
         return GiftCertificateHateoas.
-                linksForSortingGiftCertificates(giftCertificateList);
+                linksForSortingGiftCertificates(giftCertificateDTOList);
     }
 
 
@@ -100,14 +117,22 @@ public class GiftCertificateController {
      * @return list of sorted gift certificates got from service layer
      * */
     @GetMapping("double-sort")
-    public List<GiftCertificate> getSortedGiftCertificatesByNameAndCreateDate(
+    public List<GiftCertificateDTO> getSortedGiftCertificatesByNameAndCreateDate(
             @RequestParam(value = "name", defaultValue = "asc") String nameDirection,
             @RequestParam(value = "create-date", defaultValue = "asc") String createDateDirection,
             @RequestParam(value = "page", defaultValue = "1") Integer page,
             @RequestParam(value = "page-size", defaultValue = "10") Integer pageSize){
-        List<GiftCertificate> giftCertificateList = giftCertificateService.
-                getSortedGiftCertificatesByNameAndCreateDate(nameDirection,createDateDirection, page, pageSize);
-        return GiftCertificateHateoas.linksForSortingGiftCertificates(giftCertificateList);
+        List<GiftCertificateDTO> giftCertificateDTOList =
+                giftCertificateService.
+                        getSortedGiftCertificatesByNameAndCreateDate(
+                                nameDirection,
+                                createDateDirection,
+                                page,
+                                pageSize).
+                        stream().
+                        map(giftCertificateMapper::toDto).
+                        toList();
+        return GiftCertificateHateoas.linksForSortingGiftCertificates(giftCertificateDTOList);
     }
 
     /**
@@ -122,13 +147,21 @@ public class GiftCertificateController {
      * @return list of sorted gift certificates got by name from service layer
      * */
     @GetMapping("find-by-name")
-    public List<GiftCertificate> getGiftCertificatesByName(
+    public List<GiftCertificateDTO> getGiftCertificatesByName(
             @RequestParam(value = "name", defaultValue = "") String name,
             @RequestParam(value = "page", defaultValue = "1") Integer page,
             @RequestParam(value = "page-size", defaultValue = "10") Integer pageSize){
-        List<GiftCertificate> giftCertificateList =
-                giftCertificateService.getGiftCertificatesByName(name, page,pageSize);
-        return GiftCertificateHateoas.linksForGettingGiftCertificatesByNameAndByDescription(giftCertificateList);
+        List<GiftCertificateDTO> giftCertificateDTOList =
+                giftCertificateService.
+                        getGiftCertificatesByName(
+                                name,
+                                page,
+                                pageSize).
+                        stream().
+                        map(giftCertificateMapper::toDto).
+                        toList();
+        return GiftCertificateHateoas.
+                linksForGettingGiftCertificatesByNameAndByDescription(giftCertificateDTOList);
     }
 
     /**
@@ -143,13 +176,21 @@ public class GiftCertificateController {
      * @return list of gift certificates got by description from service layer
      * */
     @GetMapping("find-by-description")
-    public List<GiftCertificate> getGiftCertificatesByDescription(
+    public List<GiftCertificateDTO> getGiftCertificatesByDescription(
             @RequestParam(value = "description", defaultValue = "") String description,
             @RequestParam(value = "page", defaultValue = "1") Integer page,
             @RequestParam(value = "page-size", defaultValue = "10") Integer pageSize){
-        List<GiftCertificate> giftCertificateList =
-                giftCertificateService.getGiftCertificatesByDescription(description, page,pageSize);
-        return GiftCertificateHateoas.linksForGettingGiftCertificatesByNameAndByDescription(giftCertificateList);
+        List<GiftCertificateDTO> giftCertificateDTOList =
+                giftCertificateService.
+                        getGiftCertificatesByDescription(
+                                description,
+                                page,
+                                pageSize).
+                        stream().
+                        map(giftCertificateMapper::toDto).
+                        toList();
+        return GiftCertificateHateoas.
+                linksForGettingGiftCertificatesByNameAndByDescription(giftCertificateDTOList);
     }
 
     /**
@@ -164,43 +205,61 @@ public class GiftCertificateController {
      * @return list of gift certificates got by tags got from service layer
      * */
     @GetMapping("find-by-several-tags")
-    public List<GiftCertificate> getGiftCertificateBySeveralTags(
+    public List<GiftCertificateDTO> getGiftCertificateBySeveralTags(
             @RequestParam("tags") String[] tags,
             @RequestParam(value = "page", defaultValue = "1") Integer page,
             @RequestParam(value = "page-size", defaultValue = "10") Integer pageSize){
-        List<GiftCertificate> giftCertificateList =
-                giftCertificateService.getGiftCertificateBySeveralTags(new HashSet<>(Arrays.asList(tags)), page, pageSize);
-        return GiftCertificateHateoas.linksForGettingCertificatesBySeveralTags(giftCertificateList);
+        List<GiftCertificateDTO> giftCertificateDTOList =
+                giftCertificateService.
+                        getGiftCertificateBySeveralTags(
+                                new HashSet<>(Arrays.asList(tags)),
+                                page,
+                                pageSize).
+                        stream().map(giftCertificateMapper::toDto).
+                        toList();
+        return GiftCertificateHateoas.
+                linksForGettingCertificatesBySeveralTags(
+                        giftCertificateDTOList
+                );
     }
 
     /**
      * Controller POST method that add a new gift certificate,
      * by calling a method of service layer.
      * @see GiftCertificateService#addNewGiftCertificate(GiftCertificate)
-     * @param giftCertificate object of Gift certificate that are going to be added in DB
+     * @param giftCertificateDTO object of Gift certificate that are going to be added in DB
      *
      * @return object that was added in DB
      * */
     @PostMapping
-    public GiftCertificate addNewGiftCertificate(@RequestBody GiftCertificate giftCertificate){
-        GiftCertificate certificate = giftCertificateService.addNewGiftCertificate(giftCertificate);
-        return GiftCertificateHateoas.linksForAddingNewGiftCertificate(certificate);
+    public GiftCertificateDTO addNewGiftCertificate(@RequestBody GiftCertificateDTO giftCertificateDTO){
+        GiftCertificate certificate =
+                giftCertificateService.
+                        addNewGiftCertificate(giftCertificateMapper.toGiftCertificate(giftCertificateDTO));
+        return GiftCertificateHateoas.
+                linksForAddingNewGiftCertificate(giftCertificateMapper.toDto(certificate));
     }
 
     /**
      * Controller PATCH method that updating a gift certificate by id,
      * by calling a method of service layer.
      * @see GiftCertificateService#updateGiftCertificate(Long, GiftCertificate)
-     * @param giftCertificate object of Gift certificate that are going to be updated in DB
+     * @param giftCertificateDTO object of Gift certificate that are going to be updated in DB
      * @param id an id of object that are going to be updated
      *
      * @return object that was updated in DB
      * */
     @PatchMapping("{id}")
-    public GiftCertificate updateGiftCertificate(@PathVariable("id") Long id, @RequestBody GiftCertificate giftCertificate){
+    public GiftCertificateDTO updateGiftCertificate(@PathVariable("id") Long id, @RequestBody GiftCertificateDTO giftCertificateDTO){
         GiftCertificate updatedGiftCertificate =
-                giftCertificateService.updateGiftCertificate(id, giftCertificate);
-        return GiftCertificateHateoas.linksForUpdateGiftCErtificate(updatedGiftCertificate);
+                giftCertificateService.
+                        updateGiftCertificate(
+                                id,
+                                giftCertificateMapper.toGiftCertificate(giftCertificateDTO));
+        return GiftCertificateHateoas.
+                linksForUpdateGiftCertificate(giftCertificateMapper.
+                        toDto(updatedGiftCertificate),
+                        id);
     }
 
     /**
@@ -217,7 +276,7 @@ public class GiftCertificateController {
      * @return object that was updated in DB
      * */
     @PatchMapping("update-field/{id}")
-    public GiftCertificate updateGiftCertificateBySomeFields(@PathVariable Long id,
+    public GiftCertificateDTO updateGiftCertificateBySomeFields(@PathVariable Long id,
                                                              @Nullable @RequestParam("name") String name,
                                                              @Nullable @RequestParam("description") String description,
                                                              @Nullable @RequestParam("price") BigDecimal price,
@@ -228,7 +287,10 @@ public class GiftCertificateController {
                         description,
                         price,
                         duration);
-        return GiftCertificateHateoas.linksForUpdateGiftCErtificate(giftCertificate);
+        return GiftCertificateHateoas.
+                linksForUpdateGiftCertificate(
+                        giftCertificateMapper.toDto(giftCertificate),
+                        id);
     }
 
     /**

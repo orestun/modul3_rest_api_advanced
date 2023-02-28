@@ -1,7 +1,7 @@
 package com.epam.esm.hateoas;
 
+import com.epam.esm.DTO.GiftCertificateDTO;
 import com.epam.esm.controllers.GiftCertificateController;
-import com.epam.esm.models.GiftCertificate;
 import org.springframework.hateoas.Link;
 
 import java.math.BigDecimal;
@@ -16,10 +16,10 @@ import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.methodOn;
  * */
 public class GiftCertificateHateoas {
 
-    static private Link updateGiftCertificateById(Long id, GiftCertificate giftCertificate){
+    static private Link updateGiftCertificateById(Long id, GiftCertificateDTO giftCertificateDTO){
         return linkTo(methodOn(GiftCertificateController.class).updateGiftCertificate(
-                giftCertificate.getId(),
-                giftCertificate)).
+                id,
+                giftCertificateDTO)).
                 withRel("Update gift certificate by id").
                 withType("PATCH");
     }
@@ -46,9 +46,6 @@ public class GiftCertificateHateoas {
     static final private Link sortGiftCertificateByPriceLink = Link.of("http://localhost:8080/certificate/sort?price=asc").
             withRel("Sort gift certificates by price (asc)").
             withType("GET");
-    static final private Link doubleSortGiftCertificateLink = Link.of("http://localhost:8080/certificate/double-sort?name=asc&create-date=asc").
-            withRel("Double sort gift certificates by name and create date (asc)").
-            withType("GET");
     static final private Link findGiftCertificateByNameLink = Link.of("http://localhost:8080/certificate/find-by-name?name=your-input-name").
             withRel("Find gift certificate by name").
             withType("GET");
@@ -63,13 +60,13 @@ public class GiftCertificateHateoas {
      * Hateoas method that add links to GiftCertificate objects got as
      * result of method {@link GiftCertificateController#getAllGiftCertificates(Integer, Integer)}
      *
-     * @param giftCertificateList list of gift certificates that was get from DB
+     * @param giftCertificateDTOList list of gift certificates that was get from DB
      *
      * @return gift certificates list with links
      * */
-    static public List<GiftCertificate> linksForGettingGiftCertificates(
-            List<GiftCertificate> giftCertificateList){
-        for(GiftCertificate certificate: giftCertificateList){
+    static public List<GiftCertificateDTO> linksForGettingGiftCertificates(
+            List<GiftCertificateDTO> giftCertificateDTOList){
+        for(GiftCertificateDTO certificate: giftCertificateDTOList){
             Long id = certificate.getId();
             certificate.add(updateGiftCertificateById(id,certificate));
             certificate.add(deleteGiftCertificateById(id));
@@ -81,7 +78,7 @@ public class GiftCertificateHateoas {
             certificate.add(findGiftCertificateBySeveralTagsLink);
             certificate.add(findGiftCertificateByNameLink);
         }
-        return giftCertificateList;
+        return giftCertificateDTOList;
     }
 
     /**
@@ -89,13 +86,13 @@ public class GiftCertificateHateoas {
      * result of method {@link GiftCertificateController#getSortedGiftCertificates(String, String, String, Integer, Integer)},
      * and {@link GiftCertificateController#getSortedGiftCertificatesByNameAndCreateDate(String, String, Integer, Integer)}
      *
-     * @param giftCertificateList list of gift certificates that was get from DB
+     * @param giftCertificateDTOList list of gift certificates that was get from DB
      *
      * @return gift certificates list with links
      * */
-     static public List<GiftCertificate> linksForSortingGiftCertificates(
-             List<GiftCertificate> giftCertificateList){
-         for(GiftCertificate certificate: giftCertificateList) {
+     static public List<GiftCertificateDTO> linksForSortingGiftCertificates(
+             List<GiftCertificateDTO> giftCertificateDTOList){
+         for(GiftCertificateDTO certificate: giftCertificateDTOList) {
              Long id = certificate.getId();
              certificate.add(updateGiftCertificateById(id,certificate));
              certificate.add(deleteGiftCertificateById(id));
@@ -104,7 +101,7 @@ public class GiftCertificateHateoas {
              certificate.add(findGiftCertificateBySeveralTagsLink);
              certificate.add(findGiftCertificateByNameLink);
          }
-         return giftCertificateList;
+         return giftCertificateDTOList;
      }
 
     /**
@@ -112,13 +109,13 @@ public class GiftCertificateHateoas {
      * result of method {@link GiftCertificateController#getGiftCertificatesByName(String, Integer, Integer)}
      * and {@link GiftCertificateController#getGiftCertificatesByDescription(String, Integer, Integer)}
      *
-     * @param giftCertificateList list of gift certificates that was get from DB
+     * @param giftCertificateDTOList list of gift certificates that was get from DB
      *
      * @return gift certificates list with links
      * */
-     static public List<GiftCertificate> linksForGettingGiftCertificatesByNameAndByDescription(
-             List<GiftCertificate> giftCertificateList){
-        for (GiftCertificate certificate:giftCertificateList){
+     static public List<GiftCertificateDTO> linksForGettingGiftCertificatesByNameAndByDescription(
+             List<GiftCertificateDTO> giftCertificateDTOList){
+        for (GiftCertificateDTO certificate:giftCertificateDTOList){
             Long id = certificate.getId();
             certificate.add(updateGiftCertificateById(id,certificate));
             certificate.add(deleteGiftCertificateById(id));
@@ -128,21 +125,21 @@ public class GiftCertificateHateoas {
             certificate.add(findGiftCertificateBySeveralTagsLink);
             certificate.add(findGiftCertificateByNameLink);
         }
-        return giftCertificateList;
+        return giftCertificateDTOList;
      }
 
     /**
      * Hateoas method that add links to GiftCertificate objects got as
      * result of method {@link GiftCertificateController#getGiftCertificateBySeveralTags(String[], Integer, Integer)}
      *
-     * @param giftCertificateList list of gift certificates that was get from DB
+     * @param giftCertificateDTOList list of gift certificates that was get from DB
      *
      * @return gift certificates list with links
      * */
-     static public List<GiftCertificate> linksForGettingCertificatesBySeveralTags(
-             List<GiftCertificate> giftCertificateList
+     static public List<GiftCertificateDTO> linksForGettingCertificatesBySeveralTags(
+             List<GiftCertificateDTO> giftCertificateDTOList
      ){
-         for(GiftCertificate certificate:giftCertificateList){
+         for(GiftCertificateDTO certificate:giftCertificateDTOList){
              Long id = certificate.getId();
              certificate.add(updateGiftCertificateById(id,certificate));
              certificate.add(deleteGiftCertificateById(id));
@@ -153,21 +150,21 @@ public class GiftCertificateHateoas {
              certificate.add(findGiftCertificateByDescriptionLink);
              certificate.add(findGiftCertificateByNameLink);
          }
-         return giftCertificateList;
+         return giftCertificateDTOList;
      }
 
     /**
      * Hateoas method that add links to GiftCertificate objects got as
-     * result of method {@link GiftCertificateController#updateGiftCertificate(Long, GiftCertificate)}
+     * result of method {@link GiftCertificateController#updateGiftCertificate(Long, GiftCertificateDTO)}
      * and {@link GiftCertificateController#updateGiftCertificateBySomeFields(Long, String, String, BigDecimal, Integer)}
      *
      * @param certificate gift certificate that was updated
      *
      * @return gift certificate with links
      * */
-     static public GiftCertificate linksForUpdateGiftCErtificate(
-             GiftCertificate certificate){
-         Long id = certificate.getId();
+     static public GiftCertificateDTO linksForUpdateGiftCertificate(
+             GiftCertificateDTO certificate,
+             Long id){
          certificate.add(deleteGiftCertificateById(id));
          certificate.add(getAllGiftCertificatesLink);
          return certificate;
@@ -175,14 +172,14 @@ public class GiftCertificateHateoas {
 
     /**
      * Hateoas method that add links to GiftCertificate object got as
-     * result of method {@link GiftCertificateController#addNewGiftCertificate(GiftCertificate)}
+     * result of method {@link GiftCertificateController#addNewGiftCertificate(GiftCertificateDTO)}
      *
      * @param certificate gift certificate that was added in DB
      *
      * @return gift certificate with links
      * */
-    static public GiftCertificate linksForAddingNewGiftCertificate(
-            GiftCertificate certificate){
+    static public GiftCertificateDTO linksForAddingNewGiftCertificate(
+            GiftCertificateDTO certificate){
         Long id = certificate.getId();
         certificate.add(updateGiftCertificateById(id, certificate));
         certificate.add(deleteGiftCertificateById(id));

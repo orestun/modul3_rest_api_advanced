@@ -1,7 +1,7 @@
 package com.epam.esm.hateoas;
 
+import com.epam.esm.DTO.UserDTO;
 import com.epam.esm.controllers.UserController;
-import com.epam.esm.models.User;
 import org.springframework.hateoas.Link;
 
 /**
@@ -16,13 +16,13 @@ public class UserHateoas {
 
     /**
      * Hateoas method that add links to Tag objects got as
-     * result of method {@link UserController#addNewUser(User)}
+     * result of method {@link UserController#addNewUser(UserDTO)}
      *
      * @param user user object that was added in DB
      *
      * @return user object with links
      * */
-    static public User linksForAddingNewUser(User user){
+    static public UserDTO linksForAddingNewUser(UserDTO user){
         user.add(getAllUsersLink);
         return user;
     }

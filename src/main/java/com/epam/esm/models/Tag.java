@@ -17,7 +17,7 @@ import org.springframework.hateoas.RepresentationModel;
 @Setter
 @ToString
 @EqualsAndHashCode
-public class Tag extends RepresentationModel<Tag> {
+public class Tag {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "id", nullable = false)
